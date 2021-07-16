@@ -1,4 +1,4 @@
-const AppError = require('./appError');
+const AppError = require('./AppError');
 const { appErrors } = require('../constants/appConstants');
 const { ERROR } = require('../constants/appConstants').resStatus;
 
