@@ -1,6 +1,6 @@
 {
-  "name": "tdb_globalutils",
-  "version": "1.0.8",
+  "name": "@utils/tdb_globalutils",
+  "version": "1.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
