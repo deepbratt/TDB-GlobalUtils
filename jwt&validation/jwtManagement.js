@@ -19,7 +19,7 @@ exports.createSendJwtToken = (user, statuscode, req, res) => {
     httpOnly: true,
     //secure: req.secure || req.headers('x-forwarded-proto') === 'https',
   };
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('tezDealsToken', token, cookieOptions);
   user.password = undefined;
   res.status(statuscode).json({
     status: 'success',
