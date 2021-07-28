@@ -1,16 +1,16 @@
 {
-  "name": "tdb_globalutils",
-  "version": "1.0.6",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Magnit",
-  "license": "ISC",
-  "dependencies": {
-    "ejs": "^3.1.6",
-    "nodemailer": "^6.6.3"
-  }
+	"name": "tdb_globalutils",
+	"version": "1.0.7",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"type": "module",
+	"author": "Magnit",
+	"license": "ISC",
+	"dependencies": {
+		"ejs": "^3.1.6",
+		"nodemailer": "^6.6.3"
+	}
 }
-
