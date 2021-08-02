@@ -1,6 +1,6 @@
 {
   "name": "@utils/tdb_globalutils",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,16 @@
   "author": "Magnit",
   "license": "ISC",
   "dependencies": {
+    "@constants/tdb-constants": "^1.0.3",
+    "aws-sdk": "^2.958.0",
     "ejs": "^3.1.6",
+<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.6.3"
+=======
+    "multer": "^1.4.2",
+    "nodemailer": "^6.6.3",
+    "uuid": "^8.3.2"
+>>>>>>> 34def67d6452040cc0293af154c4f5ca86a96ff2
   }
 }
