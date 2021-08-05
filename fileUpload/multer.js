@@ -1,4 +1,5 @@
 const multer = require('multer');
+const { memoryStorage } = require('multer');
 const AppError = require('../errorHandling/AppError');
 
 const upload = (mineType) => {
