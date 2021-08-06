@@ -6,7 +6,7 @@ class APIFeatures {
 	filter() {
 		//QUERY FILTER
 		const queryParams = { ...this.queryParams };
-		const excludedFields = ['limit', 'page', 'sort', 'fields'];
+		const excludedFields = ['limit', 'page', 'sort', 'fields', 'keyword'];
 		excludedFields.forEach((el) => delete queryParams[el]);
 
 		// FILTER MONGOOSE OPERATORS
@@ -16,6 +16,13 @@ class APIFeatures {
 		// QUERY BUILDING
 		this.query = this.query.find(JSON.parse(queryStr));
 
+		return this;
+	}
+
+	search() {
+		if (this.queryParams.keyword) {
+			this.query = this.query.find({ $text: { $search: this.queryParams.keyword } });
+		}
 		return this;
 	}
 
