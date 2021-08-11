@@ -2,6 +2,7 @@ class APIFeatures {
 	constructor(query, queryParams) {
 		this.query = query;
 		this.queryParams = queryParams;
+		this.length = 0;
 	}
 	filter() {
 		//QUERY FILTER
@@ -23,6 +24,11 @@ class APIFeatures {
 		if (this.queryParams.keyword) {
 			this.query = this.query.find({ $text: { $search: this.queryParams.keyword } });
 		}
+		return this;
+	}
+
+	length() {
+		this.length = this.query.length;
 		return this;
 	}
 
