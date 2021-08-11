@@ -2,6 +2,7 @@ class APIFeatures {
 	constructor(query, queryParams) {
 		this.query = query;
 		this.queryParams = queryParams;
+		this.length = 0;
 	}
 	filter() {
 		//QUERY FILTER
@@ -44,6 +45,10 @@ class APIFeatures {
 			this.query = this.query.select('-__v');
 		}
 		return this;
+	}
+	getLength() {
+		this.length = this.query.find().count();
+		return this.query;
 	}
 	pagination() {
 		const page = this.queryParams.page * 1 || 1;
