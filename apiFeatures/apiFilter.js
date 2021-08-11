@@ -48,7 +48,7 @@ class APIFeatures {
 	}
 	getLength() {
 		let total = {...this.query};
-		this.length = total.count();
+		this.length = total.length;
 		return this;
 	}
 
