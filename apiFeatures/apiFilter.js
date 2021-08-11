@@ -2,7 +2,6 @@ class APIFeatures {
 	constructor(query, queryParams) {
 		this.query = query;
 		this.queryParams = queryParams;
-		this.length = 0;
 	}
 	filter() {
 		//QUERY FILTER
@@ -50,7 +49,6 @@ class APIFeatures {
 		const page = this.queryParams.page * 1 || 1;
 		const limit = this.queryParams.limit * 1 || 100;
 		const skip = (page - 1) * limit;
-		this.length = this.query.countDocuments();
 		this.query = this.query.skip(skip).limit(limit);
 		return this;
 	}
