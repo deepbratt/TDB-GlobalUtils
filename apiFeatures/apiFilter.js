@@ -2,7 +2,6 @@ class APIFeatures {
 	constructor(query, queryParams) {
 		this.query = query;
 		this.queryParams = queryParams;
-		this.length = 0;
 	}
 	filter() {
 		//QUERY FILTER
@@ -46,10 +45,7 @@ class APIFeatures {
 		}
 		return this;
 	}
-	getLength() {
-		this.length = this.query.find().count();
-		return this.query;
-	}
+	
 	pagination() {
 		const page = this.queryParams.page * 1 || 1;
 		const limit = this.queryParams.limit * 1 || 100;
