@@ -48,7 +48,7 @@ class APIFeatures {
 	}
 
 	getLength() {
-		this.length = this.query.find().length;
+		this.length = this.query.find().count();
 		return this;
 	}
 
