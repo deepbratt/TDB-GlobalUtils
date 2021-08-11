@@ -46,9 +46,9 @@ class APIFeatures {
 		}
 		return this;
 	}
-
 	getLength() {
-		this.length = this.query.count();
+		const total = this.query;
+		this.length = total.countDocuments();
 		return this;
 	}
 
@@ -56,9 +56,7 @@ class APIFeatures {
 		const page = this.queryParams.page * 1 || 1;
 		const limit = this.queryParams.limit * 1 || 100;
 		const skip = (page - 1) * limit;
-
 		this.query = this.query.skip(skip).limit(limit);
-
 		return this;
 	}
 }
