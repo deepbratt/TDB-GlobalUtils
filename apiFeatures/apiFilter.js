@@ -27,11 +27,6 @@ class APIFeatures {
 		return this;
 	}
 
-	async getlength() {
-		this.length = await this.query.length;
-		return this;
-	}
-
 	sort() {
 		if (this.queryParams.sort) {
 			const sortBy = this.queryParams.sort.split(',').join(' ');
@@ -49,6 +44,11 @@ class APIFeatures {
 		} else {
 			this.query = this.query.select('-__v');
 		}
+		return this;
+	}
+
+	getLength() {
+		this.length = this.query.find().length;
 		return this;
 	}
 
