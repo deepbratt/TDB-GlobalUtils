@@ -27,7 +27,7 @@ class APIFeatures {
 		return this;
 	}
 
-	length() {
+	getlength() {
 		this.length = this.query.length;
 		return this;
 	}
