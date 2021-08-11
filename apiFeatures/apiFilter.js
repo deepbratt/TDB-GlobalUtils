@@ -47,7 +47,7 @@ class APIFeatures {
 		return this;
 	}
 	getLength() {
-		const total = this.query;
+		const total = {...this.query};
 		this.length = total.countDocuments();
 		return this;
 	}
