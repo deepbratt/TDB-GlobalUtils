@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const EMAIL = 'azeemhaider817@gmail.com';
-const PASSWORD='azeem0322..'
-
+const PASSWORD = 'azeem0322.,';
 
 module.exports = class Email {
 	constructor(user, token) {
