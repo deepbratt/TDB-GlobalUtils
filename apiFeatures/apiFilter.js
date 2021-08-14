@@ -11,7 +11,7 @@ class APIFeatures {
 
 		// FILTER MONGOOSE OPERATORS
 		let queryStr = JSON.stringify(queryParams);
-		queryStr = queryStr.replace(/\b(gte|gt|lte|lt|regex)\b/g, (match) => `$${match}`);
+		queryStr = queryStr.replace(/\b(gte|gt|lte|lt|regex|options)\b/g, (match) => `$${match}`);
 
 		console.log(JSON.parse(queryStr));
 
