@@ -8,9 +8,15 @@ class APIFeatures {
 		const queryParams = { ...this.queryParams };
 		const excludedFields = ['limit', 'page', 'sort', 'fields', 'keyword'];
 		excludedFields.forEach((el) => delete queryParams[el]);
-
+		// CASE INSENSITIVE SEARCH
+		let newObj = {};
+		Object.keys(queryParams).forEach((el) => {
+			const value = `^${queryParams[el]}$`;
+			newObj[el] = { regex: value, options: 'i' };
+		});
+		console.log(newObj);
 		// FILTER MONGOOSE OPERATORS
-		let queryStr = JSON.stringify(queryParams);
+		let queryStr = JSON.stringify(newObj);
 		queryStr = queryStr.replace(/\b(gte|gt|lte|lt|regex|options)\b/g, (match) => `$${match}`);
 
 		console.log(JSON.parse(queryStr));
