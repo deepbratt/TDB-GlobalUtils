@@ -12,7 +12,7 @@ class APIFeatures {
 		let newObj = {};
 		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear'];
 		Object.keys(queryParams).forEach((el) => {
-			if (!queryParams[el].includes(excluded)) {
+			if (!excluded.includes(queryParams[el])) {
 				const value = `^${queryParams[el]}$`;
 				newObj[el] = { regex: value, options: 'i' };
 			}
