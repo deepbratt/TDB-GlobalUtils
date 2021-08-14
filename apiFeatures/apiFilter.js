@@ -15,6 +15,8 @@ class APIFeatures {
 			if (!excluded.includes(el)) {
 				const value = `^${queryParams[el]}$`;
 				newObj[el] = { regex: value, options: 'i' };
+			} else {
+				newObj[el] = queryParams[el];
 			}
 		});
 		console.log(newObj);
