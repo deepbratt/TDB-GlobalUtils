@@ -10,9 +10,12 @@ class APIFeatures {
 		excludedFields.forEach((el) => delete queryParams[el]);
 		// CASE INSENSITIVE SEARCH
 		let newObj = {};
+		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear'];
 		Object.keys(queryParams).forEach((el) => {
-			const value = `^${queryParams[el]}$`;
-			newObj[el] = { regex: value, options: 'i' };
+			if (!queryParams[el].includes(excluded)) {
+				const value = `^${queryParams[el]}$`;
+				newObj[el] = { regex: value, options: 'i' };
+			}
 		});
 		console.log(newObj);
 		// FILTER MONGOOSE OPERATORS
