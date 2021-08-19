@@ -14,7 +14,7 @@ class APIFeatures {
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
 				console.log(Array.isArray(el));
-				if (Array.isArray(el)) {
+				if (Array.isArray(queryParams[el])) {
 					var regex = el.map(function (val) {
 						return new RegExp(`${val}`, 'i');
 					});
