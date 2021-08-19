@@ -19,7 +19,9 @@ class APIFeatures {
 						let value = `^${val}$`;
 						return { regex: value, options: 'i' };
 					});
-					newObj[el] = regex;
+					regex.forEach((i) => {
+						newObj[el] = i;
+					});
 				} else {
 					const value = `^${queryParams[el]}$`;
 					newObj[el] = { regex: value, options: 'i' };
@@ -36,6 +38,7 @@ class APIFeatures {
 		console.log(JSON.parse(queryStr));
 
 		// QUERY BUILDING
+
 		this.query = this.query.find(JSON.parse(queryStr));
 
 		return this;
