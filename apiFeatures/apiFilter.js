@@ -13,13 +13,13 @@ class APIFeatures {
 		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear', '_id', 'id'];
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
+				console.log(Array.isArray(el));
 				if (Array.isArray(el)) {
-					for (var i = 0; i < el.length; i++) {
-						el[i] = `${el[i]}`;
-					}
-					newObj[el] = queryParams[el];
-				}
-				else{
+					var regex = el.map(function (val) {
+						return new RegExp(`${val}`, 'i');
+					});
+					newObj[el] = regex;
+				} else {
 					const value = `^${queryParams[el]}$`;
 					newObj[el] = { regex: value, options: 'i' };
 				}
