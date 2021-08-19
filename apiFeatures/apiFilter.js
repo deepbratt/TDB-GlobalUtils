@@ -16,9 +16,10 @@ class APIFeatures {
 				if (Array.isArray(queryParams[el])) {
 					console.log(Array.isArray(queryParams[el]));
 					var regex = queryParams[el].map(function (val) {
-						return { regex: `^${val}$`, options: 'i' };
+						let value = `^${val}$`;
+						return { regex: value, options: 'i' };
 					});
-					newObj[el] = {$in: regex};
+					newObj[el] = regex;
 				} else {
 					const value = `^${queryParams[el]}$`;
 					newObj[el] = { regex: value, options: 'i' };
