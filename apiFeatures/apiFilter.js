@@ -18,7 +18,7 @@ class APIFeatures {
 					var regex = queryParams[el].map(function (val) {
 						return { regex: `^${val}$`, options: 'i' };
 					});
-					newObj[el] = regex;
+					newObj[el] = {$in: regex};
 				} else {
 					const value = `^${queryParams[el]}$`;
 					newObj[el] = { regex: value, options: 'i' };
