@@ -10,7 +10,7 @@ class APIFeatures {
 		excludedFields.forEach((el) => delete queryParams[el]);
 		// CASE INSENSITIVE SEARCH
 		let newObj = {};
-		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear', '_id', 'id','active','banned','isSold'];
+		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear', '_id', 'id','active','banned','isSold','imageStatus'];
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
 				if (Array.isArray(queryParams[el])) {
