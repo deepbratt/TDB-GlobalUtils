@@ -54,7 +54,7 @@ class APIFeatures {
 			const sortBy = this.queryParams.sort.split(',').join(' ');
 			this.query = this.query.sort(sortBy);
 		} else {
-			this.query = this.query.sort('-date');
+			this.query = this.query.sort('-updatedAt');
 		}
 		return this;
 	}
