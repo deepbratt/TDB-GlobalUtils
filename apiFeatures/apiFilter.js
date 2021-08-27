@@ -10,7 +10,18 @@ class APIFeatures {
 		excludedFields.forEach((el) => delete queryParams[el]);
 		// CASE INSENSITIVE SEARCH
 		let newObj = {};
-		const excluded = ['price', 'engineCapacity', 'milage', 'modelYear', '_id', 'id','active','banned','isSold','imageStatus'];
+		const excluded = [
+			'price',
+			'engineCapacity',
+			'milage',
+			'modelYear',
+			'_id',
+			'id',
+			'active',
+			'banned',
+			'isSold',
+			'imageStatus',
+		];
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
 				if (Array.isArray(queryParams[el])) {
@@ -31,7 +42,10 @@ class APIFeatures {
 		console.log(newObj);
 		// FILTER MONGOOSE OPERATORS
 		let queryStr = JSON.stringify(newObj);
-		queryStr = queryStr.replace(/\b(gte|gt|lte|lt|regex|options)\b/g, (match) => `$${match}`);
+		queryStr = queryStr.replace(
+			/\b(gte|gt|lte|lt|regex|options)\b/g,
+			(match) => `$${match}`
+		);
 
 		console.log(JSON.parse(queryStr));
 
@@ -44,7 +58,12 @@ class APIFeatures {
 
 	search() {
 		if (this.queryParams.keyword) {
-			this.query = this.query.find({ $text: { $search: this.queryParams.keyword } });
+			this.query = this.query
+				.find(
+					{ $text: { $search: this.queryParams.keyword } },
+					{ score: { $meta: 'textScore' } }
+				)
+				.sort({ score: { $meta: 'textScore' } });
 		}
 		return this;
 	}
