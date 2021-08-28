@@ -58,12 +58,11 @@ class APIFeatures {
 
 	search() {
 		if (this.queryParams.keyword) {
-			this.query = this.query
-				.find(
-					{ $text: { $search: this.queryParams.keyword } },
-					{ score: { $meta: 'textScore' } }
-				)
-				.sort({ score: { $meta: 'textScore' } });
+			this.query = this.query.find(
+				{ $text: { $search: this.queryParams.keyword } },
+				{ score: { $meta: 'textScore' } },
+				{ $match: { score: { $gt: 1.0 } } }
+			);
 		}
 		return this;
 	}
