@@ -63,7 +63,7 @@ class APIFeatures {
 					{ $text: { $search: this.queryParams.keyword } },
 					{ score: { $meta: 'textScore' } }
 				)
-				.select('sort');
+				.select('+score');
 		}
 		console.log(this.query);
 		return this;
