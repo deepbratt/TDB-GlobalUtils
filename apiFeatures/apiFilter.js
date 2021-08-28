@@ -64,6 +64,7 @@ class APIFeatures {
 				{ $match: { score: { $gt: 1.0 } } }
 			);
 		}
+		console.log(this.query);
 		return this;
 	}
 
