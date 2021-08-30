@@ -63,8 +63,13 @@ class APIFeatures {
 			console.log(oldString);
 			let newString = sp.removeStopwords(oldString);
 			let unique = [...new Set(newString)];
-			this.query = this.query.find({ $text: { $search: `"\"${unique.join(' ')}\""` } });
-			// 	.select({ score: { $meta: 'textScore' } });
+			this.query = this.query.aggregate([
+				{ $match: { $text: { $search: unique.join(' ') } } },
+				{ $project: {score: { $meta: 'textScore' } } },
+				{ $match: { score: { $gt: 1.0 } } },
+			]);
+				// .find({ $text: { $search: unique.join(' ') } })
+				// .select({ score: { $meta: 'textScore' } });
 			// const maxScore = 1.1 * newString.length;
 			// console.log(maxScore);
 			//this.query.find({ score: { $eq: maxScore } });
