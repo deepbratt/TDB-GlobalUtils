@@ -66,7 +66,7 @@ class APIFeatures {
 			this.query = this.query
 				.find({ $text: { $search: newString.join(' ') } })
 				.select({ score: { $meta: 'textScore' } });
-			this.query.find({ score: 1.1 * newString.length });
+			//this.query.find({ score: 1.1 * newString.length });
 		}
 		return this;
 	}
