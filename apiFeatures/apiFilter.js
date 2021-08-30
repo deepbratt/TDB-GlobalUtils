@@ -1,3 +1,4 @@
+const sp = require('stopword');
 class APIFeatures {
 	constructor(query, queryParams) {
 		this.query = query;
@@ -58,9 +59,14 @@ class APIFeatures {
 
 	search() {
 		if (this.queryParams.keyword) {
+			const oldString = this.queryParams.keyword.split(' ');
+			console.log(oldString);
+			const newString = sp.removeStopwords(oldString);
+			console.log(newString);
 			this.query = this.query
-				.find({ $text: { $search: this.queryParams.keyword } })
+				.find({ $text: { $search: newString.join(' ') } })
 				.select({ score: { $meta: 'textScore' } });
+			this.query.find({ score: 1.1 * newString.length });
 		}
 		return this;
 	}
