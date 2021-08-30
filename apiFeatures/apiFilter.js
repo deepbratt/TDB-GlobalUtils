@@ -61,10 +61,12 @@ class APIFeatures {
 		if (this.queryParams.keyword) {
 			const oldString = this.queryParams.keyword.split(' ');
 			console.log(oldString);
-			const newString = sp.removeStopwords(oldString);
-			const search = newString.map((el) => `${el}`);
+			let newString = sp.removeStopwords(oldString);
+			let unique = [...new Set(newString)];
+			const search = unique.map((el) => `${el}`);
+			search.forEach();
 			console.log(newString);
-			this.query = this.query.find({ $text: { $search: search } });
+			this.query = this.query.find({ $text: { $search: `"\"${search.join(' ')}\""` } });
 			// 	.select({ score: { $meta: 'textScore' } });
 			// const maxScore = 1.1 * newString.length;
 			// console.log(maxScore);
