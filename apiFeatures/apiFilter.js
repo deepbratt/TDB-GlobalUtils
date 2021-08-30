@@ -63,10 +63,7 @@ class APIFeatures {
 			console.log(oldString);
 			let newString = sp.removeStopwords(oldString);
 			let unique = [...new Set(newString)];
-			const search = unique.map((el) => `${el}`);
-			search.forEach();
-			console.log(newString);
-			this.query = this.query.find({ $text: { $search: `"\"${search.join(' ')}\""` } });
+			this.query = this.query.find({ $text: { $search: `"\"${unique.join(' ')}\""` } });
 			// 	.select({ score: { $meta: 'textScore' } });
 			// const maxScore = 1.1 * newString.length;
 			// console.log(maxScore);
