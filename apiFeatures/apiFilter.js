@@ -63,7 +63,7 @@ class APIFeatures {
 					{ $text: { $search: this.queryParams.keyword } },
 					{ score: { $meta: 'textScore' } }
 				)
-				.projection({ score: { $meta: 'textScore' } });
+				.sort({ score: { $meta: 'textScore' } })
 		}
 		return this;
 	}
