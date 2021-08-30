@@ -62,13 +62,13 @@ class APIFeatures {
 			const oldString = this.queryParams.keyword.split(' ');
 			console.log(oldString);
 			const newString = sp.removeStopwords(oldString);
+			const search = newString.map((el) => `${el}`);
 			console.log(newString);
-			this.query = this.query
-				.find({ $text: { $search: newString.join(' ') } })
-				.select({ score: { $meta: 'textScore' } });
-			const maxScore = 1.1 * newString.length;
-			console.log(maxScore);
-			this.query.find({ score: { $eq: maxScore } });
+			this.query = this.query.find({ $text: { $search: search } });
+			// 	.select({ score: { $meta: 'textScore' } });
+			// const maxScore = 1.1 * newString.length;
+			// console.log(maxScore);
+			//this.query.find({ score: { $eq: maxScore } });
 		}
 		return this;
 	}
