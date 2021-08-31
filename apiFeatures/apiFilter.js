@@ -52,7 +52,7 @@ class APIFeatures {
 
 		// QUERY BUILDING
 
-		this.query = this.query.aggregate([{ $match: JSON.parse(queryStr) }]);
+		this.query = this.query.find(JSON.parse(queryStr));
 
 		return this;
 	}
@@ -63,76 +63,41 @@ class APIFeatures {
 			console.log(oldString);
 			let newString = sp.removeStopwords(oldString);
 			let unique = [...new Set(newString)];
-			this.query = this.query.aggregate([
-				{ $match: { $text: { $search: unique.join(' ') } } },
-				{ $project: { score: { $meta: 'textScore' } } },
-				{ $match: { score: { $gt: unique.length.toFixed(1) } } },
-			]);
-			// 	.find({ $text: { $search: unique.join(' ') } })
-			// 	.select({ score: { $meta: 'textScore' } })
-			// 	.sort({ score: { $meta: 'textScore' } });
-			// // const maxScore = 1.1 * newString.length;
-			// // console.log(maxScore);
-			// //this.query.find({ score: { $eq: maxScore } });
+			this.query = this.query
+				.find({ $text: { $search: `\"${unique.join(' ')}\"` } })
+				.select({ score: { $meta: 'textScore' } })
+				.sort({ score: { $meta: 'textScore' } });
+			// const maxScore = 1.1 * newString.length;
+			// console.log(maxScore);
+			//this.query.find({ score: { $eq: maxScore } });
 		}
 		return this;
 	}
-	// bestmatch() {
-	// 	if (this.queryParams.keyword) {
-	// 		const oldString = this.queryParams.keyword.split(' ');
-	// 		console.log(oldString);
-	// 		let newString = sp.removeStopwords(oldString);
-	// 		let unique = [...new Set(newString)];
-	// 		this.query = this.query.find({ score: { $gt: `${unique.length}` } });
-	// 		// const maxScore = 1.1 * newString.length;
-	// 		// console.log(maxScore);
-	// 		//this.query.find({ score: { $eq: maxScore } });
-	// 	}
-	// 	return this;
-	// }
-
 	sort() {
 		if (this.queryParams.sort) {
-			let obj = {};
-			const sortBy = this.queryParams.sort.split(',');
-			for (var i = 0; i < sortBy.length; i++) {
-				if (sortBy[i].startsWith('-')) {
-					var filter = sortBy[i].replaceAt(0, '');
-					obj[filter] = -1;
-				} else {
-					obj[sortBy[i]] = 1;
-				}
-			}
-			this.query = this.query.aggregate([{ $sort: obj }]);
+			const sortBy = this.queryParams.sort.split(',').join(' ');
+			this.query = this.query.sort(sortBy);
 		} else {
-			this.query = this.query.aggregate([{ $sort: { createdAt: -1 } }]);
+			this.query = this.query.sort('-updatedAt');
 		}
 		return this;
 	}
 
-	// limitFields() {
-	// 	if (this.queryParams.fields) {
-	// 		const fields = this.queryParams.fields.split(',').join(' ');
-	// 		this.query = this.query.select(fields);
-	// 	} else {
-	// 		this.query = this.query.select('-__v');
-	// 	}
-	// 	return this;
-	// }
+	limitFields() {
+		if (this.queryParams.fields) {
+			const fields = this.queryParams.fields.split(',').join(' ');
+			this.query = this.query.select(fields);
+		} else {
+			this.query = this.query.select('-__v');
+		}
+		return this;
+	}
 
 	pagination() {
 		const page = this.queryParams.page * 1 || 1;
 		const limit = this.queryParams.limit * 1 || 100;
 		const skip = (page - 1) * limit;
-		this.query = this.query.aggregate([
-			{
-				$facet: {
-					metadata: [{ $count: 'total' }, { $addFields: { page: NumberInt(page) } }],
-					data: [{ $skip: skip }, { $limit: limit }], // add projection here wish you re-shape the docs
-				},
-			},
-		]);
-		//this.query = this.query.skip(skip).limit(limit);
+		this.query = this.query.skip(skip).limit(limit);
 		return this;
 	}
 }
