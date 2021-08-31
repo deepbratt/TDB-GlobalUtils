@@ -79,7 +79,7 @@ class APIFeatures {
 			console.log(oldString);
 			let newString = sp.removeStopwords(oldString);
 			let unique = [...new Set(newString)];
-			this.query = this.query.find({ score: { $gt: unique.length } });
+			this.query = this.query.find({ score: { $gt: `${unique.length}` } });
 			// const maxScore = 1.1 * newString.length;
 			// console.log(maxScore);
 			//this.query.find({ score: { $eq: maxScore } });
