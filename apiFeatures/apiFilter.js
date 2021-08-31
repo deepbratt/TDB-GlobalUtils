@@ -73,6 +73,18 @@ class APIFeatures {
 		}
 		return this;
 	}
+	bestmatch() {
+		if (this.queryParams.keyword) {
+			const oldString = this.queryParams.keyword.split(' ');
+			console.log(oldString);
+			let newString = sp.removeStopwords(oldString);
+			let unique = [...new Set(newString)];
+			this.query = this.query.find({ score: { $gt: unique.length } });
+			// const maxScore = 1.1 * newString.length;
+			// console.log(maxScore);
+			//this.query.find({ score: { $eq: maxScore } });
+		}
+	}
 
 	sort() {
 		if (this.queryParams.sort) {
