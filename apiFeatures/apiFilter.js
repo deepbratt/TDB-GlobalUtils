@@ -84,6 +84,7 @@ class APIFeatures {
 			// console.log(maxScore);
 			//this.query.find({ score: { $eq: maxScore } });
 		}
+		return this;
 	}
 
 	sort() {
