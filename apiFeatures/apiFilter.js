@@ -64,12 +64,9 @@ class APIFeatures {
 			let newString = sp.removeStopwords(oldString);
 			let unique = [...new Set(newString)];
 			this.query = this.query
-				.find({ $text: { $search: `\"${unique.join(' ')}\"` } })
+				.find({ $text: { $search: unique.join(' ') } })
 				.select({ score: { $meta: 'textScore' } })
 				.sort({ score: { $meta: 'textScore' } });
-			// const maxScore = 1.1 * newString.length;
-			// console.log(maxScore);
-			//this.query.find({ score: { $eq: maxScore } });
 		}
 		return this;
 	}
@@ -78,7 +75,7 @@ class APIFeatures {
 			const sortBy = this.queryParams.sort.split(',').join(' ');
 			this.query = this.query.sort(sortBy);
 		} else {
-			this.query = this.query.sort('-updatedAt');
+			this.query = this.query.sort('-createdAt');
 		}
 		return this;
 	}
