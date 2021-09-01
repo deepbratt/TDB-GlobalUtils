@@ -1,3 +1,4 @@
+const sp = require('stopword');
 class APIFeatures {
   constructor(query, queryParams) {
     this.query = query;
@@ -53,22 +54,31 @@ class APIFeatures {
     return this;
   }
 
-  search() {
-    if (this.queryParams.keyword) {
-      this.query = this.query.find({ $text: { $search: this.queryParams.keyword } });
-    }
-    return this;
-  }
-
-  sort() {
-    if (this.queryParams.sort) {
-      const sortBy = this.queryParams.sort.split(',').join(' ');
-      this.query = this.query.sort(sortBy);
-    } else {
-      this.query = this.query.sort('-updatedAt');
-    }
-    return this;
-  }
+	search() {
+		if (this.queryParams.keyword) {
+			const oldString = this.queryParams.keyword.split(' ');
+			console.log(oldString);
+			let newString = sp.removeStopwords(oldString);
+			let unique = [...new Set(newString)];
+			this.query = this.query
+				.find({ $text: { $search: `\"${unique.join(' ')}\"` } })
+				.select({ score: { $meta: 'textScore' } })
+				.sort({ score: { $meta: 'textScore' } });
+			// const maxScore = 1.1 * newString.length;
+			// console.log(maxScore);
+			//this.query.find({ score: { $eq: maxScore } });
+		}
+		return this;
+	}
+	sort() {
+		if (this.queryParams.sort) {
+			const sortBy = this.queryParams.sort.split(',').join(' ');
+			this.query = this.query.sort(sortBy);
+		} else {
+			this.query = this.query.sort('-updatedAt');
+		}
+		return this;
+	}
 
   limitFields() {
     if (this.queryParams.fields) {
