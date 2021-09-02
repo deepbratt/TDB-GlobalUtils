@@ -22,6 +22,8 @@ class APIFeatures {
 			'banned',
 			'isSold',
 			'imageStatus',
+			'model_id',
+			'make_id',
 		];
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
@@ -43,10 +45,7 @@ class APIFeatures {
 		console.log(newObj);
 		// FILTER MONGOOSE OPERATORS
 		let queryStr = JSON.stringify(newObj);
-		queryStr = queryStr.replace(
-			/\b(gte|gt|lte|lt|regex|options)\b/g,
-			(match) => `$${match}`
-		);
+		queryStr = queryStr.replace(/\b(gte|gt|lte|lt|regex|options)\b/g, (match) => `$${match}`);
 
 		console.log(JSON.parse(queryStr));
 
