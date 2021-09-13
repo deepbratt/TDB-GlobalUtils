@@ -22,6 +22,8 @@ class APIFeatures {
       'banned',
       'isSold',
       'imageStatus',
+      'model_id',
+      'make_id',
     ];
     Object.keys(queryParams).forEach((el) => {
       if (!excluded.includes(el)) {
@@ -54,28 +56,28 @@ class APIFeatures {
     return this;
   }
 
-	search() {
-		if (this.queryParams.keyword) {
-			const oldString = this.queryParams.keyword.split(' ');
-			console.log(oldString);
-			let newString = sp.removeStopwords(oldString);
-			let unique = [...new Set(newString)];
-			this.query = this.query
-				.find({ $text: { $search: unique.join(' ') } })
-				.select({ score: { $meta: 'textScore' } })
-				.sort({ score: { $meta: 'textScore' } });
-		}
-		return this;
-	}
-	sort() {
-		if (this.queryParams.sort) {
-			const sortBy = this.queryParams.sort.split(',').join(' ');
-			this.query = this.query.sort(sortBy);
-		} else {
-			this.query = this.query.sort('-createdAt');
-		}
-		return this;
-	}
+  search() {
+    if (this.queryParams.keyword) {
+      const oldString = this.queryParams.keyword.split(' ');
+      console.log(oldString);
+      let newString = sp.removeStopwords(oldString);
+      let unique = [...new Set(newString)];
+      this.query = this.query
+        .find({ $text: { $search: unique.join(' ') } })
+        .select({ score: { $meta: 'textScore' } })
+        .sort({ score: { $meta: 'textScore' } });
+    }
+    return this;
+  }
+  sort() {
+    if (this.queryParams.sort) {
+      const sortBy = this.queryParams.sort.split(',').join(' ');
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort('-createdAt');
+    }
+    return this;
+  }
 
   limitFields() {
     if (this.queryParams.fields) {
@@ -89,7 +91,7 @@ class APIFeatures {
 
   pagination() {
     const page = this.queryParams.page * 1 || 1;
-    const limit = this.queryParams.limit * 1 || 100;
+    const limit = this.queryParams.limit * 1 || 0;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
     return this;
