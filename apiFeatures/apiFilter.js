@@ -24,7 +24,8 @@ class APIFeatures {
 			'imageStatus',
 			'model_id',
 			'make_id',
-			'ban'
+			'ban',
+			'createdBy'
 		];
 		Object.keys(queryParams).forEach((el) => {
 			if (!excluded.includes(el)) {
