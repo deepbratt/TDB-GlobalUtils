@@ -16,6 +16,7 @@ class APIFeatures {
 			'engineCapacity',
 			'milage',
 			'modelYear',
+			'phone',
 			'_id',
 			'id',
 			'active',
