@@ -28,6 +28,14 @@ class APIFeatures {
       'ban',
       'createdBy',
       'cancelled',
+      'buyer_details',
+      'car_details',
+      'seller_details',
+      'firstName',
+      'lastName',
+      'make',
+      'model',
+      'modelYear',
     ];
     Object.keys(queryParams).forEach((el) => {
       if (!excluded.includes(el)) {
