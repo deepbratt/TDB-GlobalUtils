@@ -1,6 +1,6 @@
 const multer = require('multer');
 const { memoryStorage } = require('multer');
-const { AppError } = require('@utils/tdb_globalutils');
+const AppError = require('../errorHandling/AppError');
 
 exports.multipleUploads = (mineType, myType) => {
   return multer({
