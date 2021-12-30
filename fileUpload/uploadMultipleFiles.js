@@ -2,7 +2,7 @@ const multer = require('multer');
 const { memoryStorage } = require('multer');
 const AppError = require('../errorHandling/AppError');
 
-exports.multipleUploads = (mineType, myType) => {
+const multipleUploads = (mineType, myType) => {
   return multer({
     storage: memoryStorage(),
     fileFilter: (req, file, callback) => {
@@ -14,3 +14,5 @@ exports.multipleUploads = (mineType, myType) => {
     },
   });
 };
+
+module.exports = multipleUploads;
